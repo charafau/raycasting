@@ -1,10 +1,12 @@
 import 'dart:math' as math;
 
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:raycasting/game_data.dart';
 import 'package:raycasting/map.dart';
 import 'package:raycasting/raycaster.dart';
+import 'package:raycasting/raycaster_flame.dart';
 import 'package:raycasting/utils.dart';
 
 void main() {
@@ -47,12 +49,12 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     playerData = PlayerData();
-    globalFocus = FocusNode(
-      onKeyEvent: (node, event) {
-        _onKeyPress(event);
-        return KeyEventResult.handled;
-      },
-    );
+    // globalFocus = FocusNode(
+    //   onKeyEvent: (node, event) {
+    //     _onKeyPress(event);
+    //     return KeyEventResult.handled;
+    //   },
+    // );
   }
 
   void _incrementCounter() {
@@ -68,12 +70,12 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Focus(
-        focusNode: globalFocus,
-        child: Raycaster(
-          playerData: playerData,
-        ),
-      ),
+      // body: Focus(
+      //   focusNode: globalFocus,
+      //   child: Raycaster(
+      //     playerData: playerData,
+      //   ),
+      // ),
       // body: Center(
       //   child: Column(
       //     mainAxisAlignment: MainAxisAlignment.center,
@@ -87,46 +89,21 @@ class _MyHomePageState extends State<MyHomePage> {
       //     ],
       //   ),
       // ),
+      body: GameWidget(
+        game: RaycasterFlame(
+          gameData: GameData(
+            screenData: ScreenData(),
+            playerData: playerData,
+            renderData: RenderData(),
+          ),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
-  }
-
-  void _onKeyPress(event) {
-    // print('${event}');
-
-    // if (event.character != null && event.character == 'w') {
-    if (event.physicalKey == PhysicalKeyboardKey.arrowUp) {
-      final playerCos = math.cos(degreeToRadians(playerData.angle)) *
-          playerData.movementSpeed;
-      final playerSin = math.sin(degreeToRadians(playerData.angle)) *
-          playerData.movementSpeed;
-      final newX = playerData.x + playerCos;
-      final newY = playerData.y + playerSin;
-      if (miniMap[newY.floor()][newX.floor()] == 0) {
-        playerData.x = newX;
-        playerData.y = newY;
-      }
-    } else if (event.physicalKey == PhysicalKeyboardKey.arrowDown) {
-      final playerCos = math.cos(degreeToRadians(playerData.angle)) *
-          playerData.movementSpeed;
-      final playerSin = math.sin(degreeToRadians(playerData.angle)) *
-          playerData.movementSpeed;
-      final newX = playerData.x - playerCos;
-      final newY = playerData.y - playerSin;
-      if (miniMap[newY.floor()][newX.floor()] == 0) {
-        playerData.x = newX;
-        playerData.y = newY;
-      }
-    } else if (event.physicalKey == PhysicalKeyboardKey.arrowLeft) {
-      playerData.angle -= playerData.rotationSpeed;
-    } else if (event.physicalKey == PhysicalKeyboardKey.arrowRight) {
-      playerData.angle += playerData.rotationSpeed;
-    }
-    setState(() {});
   }
 }
 
