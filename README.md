@@ -1,6 +1,8 @@
 # raycasting
 
-A new Flutter project.
+simple raycasting with flutter and flame
+
+![screenshot](raycasting.png)
 
 ## Getting Started
 

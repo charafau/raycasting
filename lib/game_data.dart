@@ -29,8 +29,8 @@ class ScreenData {
   final int halfHeight;
 
   ScreenData({
-    this.width = 640,
-    this.height = 480,
+    this.width = 1280,
+    this.height = 720,
   })  : halfWidth = (width.toDouble() / 2).toInt(),
         halfHeight = (height.toDouble() / 2).toInt();
 }
