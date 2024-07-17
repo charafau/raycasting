@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'dart:math' as math;
 
 import 'package:flame/game.dart';
@@ -22,11 +21,14 @@ class RaycasterFlame extends FlameGame with KeyboardEvents {
 
   @override
   void render(Canvas canvas) {
+    super.render(canvas);
     raycasting(canvas);
   }
 
   @override
   void update(double dt) {
+    super.update(dt);
+
     // TODO: implement update
   }
 

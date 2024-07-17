@@ -40,29 +40,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  late PlayerData playerData;
-  late FocusNode globalFocus;
-
-  @override
-  void initState() {
-    super.initState();
-    playerData = PlayerData();
-    // globalFocus = FocusNode(
-    //   onKeyEvent: (node, event) {
-    //     _onKeyPress(event);
-    //     return KeyEventResult.handled;
-    //   },
-    // );
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,16 +70,11 @@ class _MyHomePageState extends State<MyHomePage> {
         game: RaycasterFlame(
           gameData: GameData(
             screenData: ScreenData(),
-            playerData: playerData,
             renderData: RenderData(),
+            playerData: PlayerData(),
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
